@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>이미지 슬라이더</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.slider').imageSlider({
+                width: 460,
+                height: 300
+            });
+        });
+
+            // 플러그인 등록합니다.
+            $.fn.imageSlider = function (options) {
+            // 변수를 선언합니다.
+            const width = options.width || 460;
+            const height = options.height || 300;
+            let current = 0;
+
+            // 함수를 선언합니다.
+            const moveTo = function () {
+                $(this).find('.images').animate({
+                    left: -current * width
+                }, 1000);
+            };
+
+            // 슬라이더 내부의 이미지 개수를 확인합니다.
+            const imageLength = $(this).find('.image').length;
+
+            // 슬라이더 버튼을 추가합니다.
+            for (let i = 0; i < imageLength; i++) {
+                $('<button></button>')
+                    .attr('data-position', i)
+                    .text(i)
+                    .click(function () {
+                        current = $(this).attr('data-position');
+                        moveTo.call(this);
+                    })
+                    .insertBefore(this);
+            }
+
+            // 슬라이더 스타일을 설정합니다.
+            $(this).css({
+                position: 'relative',
+                width: width,
+                height: height,
+                overflow: 'hidden'
+            });
+
+            $(this).find('.images').css({
+                position: 'absolute',
+                width: width * imageLength,
+            });
+
+            $(this).find('.image').css({
+                margin: 0,
+                padding: 0,
+                width: width,
+                height: height,
+                display: 'block',
+                float: 'left'
+            });
+
+            // 3초마다 슬라이더를 이동시킵니다.
+            setInterval(function () {
+                current = (current + 1) % imageLength;
+                moveTo.call(this); // this를 플러그인 요소로 설정
+            }.bind(this), 3000); // bind를 사용하여 함수 내에서 this를 플러그인 요소로 설정
+        };
+    </script>
+</head>
+<body>
+    <div class="slider">
+        <div class="images">
+            <img class="image" src="https://i.namu.wiki/i/6VlwTq_z8IUcX56VIp_P4CSTs37mh1lSTQRdqttTTCKOk8f_sv6MzYXzPlaSIw_6sjBG17-NWuT6SBuQFCVELAHPFum3O6e-AM_EHiehq4umC9L80s6jghE_esD9DD7RiF8gMeUDS4J9LOa34U7BiQ.webp" />
+            <img class="image" src="https://i.namu.wiki/i/QO-NRSTBUABS33tF8MbSEwXPRjmKK8uXVXAfrmZnMKuzl4HuY6bq8KmRRvW88GVNcSid9VVH7qn4ZXE_lxkO939KktUO0h_3ZIuUsnCDHWQ6aFSPfH7yADya2e60WdeNRIaUnOVXdfLUD7e05yEAmQ.webp" />
+            <img class="image" src="https://image.webtoonguide.com/29/ce/353b1c99ca4bc7beb82f69c7d97c.jpg" />
+            <img class="image" src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F7CaTC%2FbtrKLgJ4NJK%2FWKb4E5kkkK8vYzlUwWkoJk%2Fimg.jpg" />
+            <div class="image">
+                <h1>이미지가 아닌 것</h1>
+                <p>2302544_김하랑</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
