@@ -1,0 +1,613 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 with Hanbit</title> 
+    <!-- 초기화 -->
+    <style>
+        * {
+            margin: 0; padding: 0;
+            font-family: 'Malgun Gotic', sans-serif;
+        }
+
+        a { text-decoration: none; }
+        img { border: 0; }
+        li { list-style: none; }
+        html { background: #f7f5f5; }
+    </style>
+    <!-- 헤더 -->
+    <style>
+        #main-header {
+            height: 40px;
+            background: #faf7f7;
+
+            position: relative;
+        }
+
+        .header-search-form {
+            float: left;
+        }
+
+        .header-title {
+            position: absolute;
+            width: 200px; height:  40px;
+            left: 50%; margin-left: -100px;
+            background: url('logo.png');
+            background-repeat: no-repeat;
+
+            text-indent: -9999px;
+        }
+
+        .header-menu {
+            float: right;
+        }
+    </style>
+    <!-- 드롭다운 -->
+    <style>
+        .outer-menu {
+            float: left;
+            width: 100px; height: 20px;
+            line-height: 20px;
+            padding: 10px 0;
+            position: relative;
+            text-align: center;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            z-index: 9999;
+        }
+
+        .outer-menu:hover { background: #E1DFDF; }
+
+        .inner-menu {
+            display: none;
+            background: #FFFFFF;
+            margin-top: 10px;
+            width: 100%;
+
+            border-top: 1px solid #cccaca;
+            box-shadow: 0 2px 4px rgba(34,25,25,0.5);
+        }
+
+        .inner-menu a {
+            display: block;
+            padding: 5px 10px;
+            z-index: 5000;
+        }
+
+        .inner-menu a:hover { background: #E1DFDF; }
+    </style>
+    <!-- 네비게이션 메뉴 -->
+    <style>
+        #main-navigation {
+            height: 30px;
+            background: #faf7f7;
+            border-top: 1px solid #cfcaca;
+            box-shadow: 1px 3px 3px rgba(34, 25, 25, 0.4);
+        }
+
+        #main-navigation > ul {
+            overflow:hidden;
+            text-align: center;
+        }
+
+        #main-navigation > ul > li {
+            display: inline;
+
+            padding: 0 5px;
+
+            line-height: 30px;
+            font-size: 13px;
+            color: #524D4D;
+            text-shadow: 0 1px 1px white;
+        }
+
+        #main-navigation > ul > li:hover { 
+            background: #E1DFDF;
+            border-radius: 2px;
+        }
+    </style>
+    <!-- 검색 양식 -->
+    <style>
+        .header-search-form {
+            height: 26px;
+            padding: 7px;
+        }
+
+        .input-search {
+            display: block;
+            float: left;
+
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            border-radius: 15px 0 0 15px;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+
+            width: 120px; height: 24px;
+            padding: 0 0 0 10px;
+            font-size: 12px;
+            color: #555555;
+        }
+
+        .input-search:focus {
+            border-color: rgba(82, 168, 236, 0.8);
+            outline: 0;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-search-submit {
+            display: block;
+            float: left;
+            width: 50px;
+            height: 26px;
+            border-radius: 0 15px 15px 0;
+            border: 1px solid #CCCCCC;
+            margin-left: -1px;
+        }
+
+    </style>
+    <!-- 종이 스타일 -->
+    <style>
+        .paper {
+            width: 190px;
+            margin-top: 10px;
+            padding: 15px 15px 0;
+            font-size: 11px;
+            background: #FFFFFF;
+            box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+        }
+
+        .paper-content {
+            margin: 0 -15px;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #F2F0F0;
+
+            overflow: hidden;
+        }
+
+        .paper-description {
+            margin: 10px 0;
+        }
+
+        .paper-link {
+            display: block;
+            float: left;
+        }
+
+        .paper-text {
+            float: left;
+            width: 150px;
+            margin-left: 10px;
+        }
+    </style>
+    <!-- 섹션 -->
+    <style>
+        /* 미디어 쿼리를 지원하지 않는 웹 브라우저 */
+        #main-section {
+            width: 920px;
+            margin: 0 auto;
+        }
+
+        /* 3줄 */
+        @media (max-width: 919px) {
+            #main-section { width: 690px; }
+        } 
+
+        /* 4줄 */
+        @media (min-width: 920px) and (max-width:1149px) {
+            #main-section { width: 920px; }
+        } 
+
+        /* 5줄 */
+        @media (min-width:1150px) and (max-width:1379px) {
+            #main-section { width: 1150px; }
+        }
+
+        /* 6줄 */
+        @media (min-width:1380px) {
+            #main-section { width: 1380px; }
+        }
+    </style>
+    <!-- 라이트박스 -->
+    <style>
+        #darken-background {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 100%; 
+
+            display: none;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            overflow-y: scroll;
+        }
+
+        #lightbox {
+            width: 700px;
+            margin: 20px auto; padding: 15px;
+
+            border: 1px solid #333333;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 5px 5px rgba(34, 25, 25, 0.4);
+
+            text-align: center;
+        }
+
+        .user-information {  overflow: hidden;  text-align: left; }
+        .user-information-image { float: left; width: 70px; }
+        .user-information-text { float: right; width: 620px;  }
+        .lightbox-splitter { margin: 10px 0; }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="jquery.masonry.min.js"></script>
+    <script src="jquery.imagesloaded.min.js"></script>
+    <script>
+        // 풀다운 메뉴
+        $(document).ready(function () {
+            // 풀다운 메뉴
+            $('.outer-menu').hover(function () {
+                $(this).find('.inner-menu').css('display', 'block');
+            }, function () {
+                $(this).find('.inner-menu').css('display', 'none');
+            });
+        });
+
+        // 페이지
+        $(document).ready(function () {
+            // 이미지 로드 확인
+            $('#main-section').imagesLoaded(function () {
+                // jQuery Masonry 플러그인 적용
+                $('#main-section').masonry({
+                    itemSelector: '.paper',
+                    columnWidth: 230,
+                    isAnimated: true
+                });
+            });
+});
+          
+        
+        // 라이트 박스
+        $(document).ready(function () {
+            function showLightBox() {
+                // 라이트박스를 보이게 합니다.
+                $('#darken-background').show();
+                $('#darken-background').css('top', $(window).scrollTop());
+                // 스크롤을 못하게 합니다.
+                $('body').css('overflow', 'hidden');
+            }
+
+            function hideLightBox() {
+                // 라이트박스를 안 보이게 합니다.
+                $('#darken-background').hide();
+
+                // 스크롤을 하게 합니다.
+                $('body').css('overflow', '');
+            }
+
+            // 라이트박스 제거 이벤트
+            $('#darken-background').click(function () {
+                hideLightBox();
+            });
+
+              // 클릭 이벤트 연결
+            $('.paper').click(function () {
+                showLightBox();
+            });
+
+            // 라이트박스 제거 이벤트 보조
+            $('#lightbox').click(function (event) {
+                event.stopPropagation()
+            });
+        });
+    </script>
+</head> 
+<body> 
+    <!-- 헤더 --> 
+    <header id="main-header">
+        <img id="logo" width="190" height="40" src="https://i.namu.wiki/i/M3d5A4EmRsvzGfCSjVAHCbtakbtHypWC_4vTmzAZVJAxHPd9IY0IWCXvsqgX5AiwspZgLnN5nou_vVGcz1wygA.svg" alt="핀터레스트 로고"> 
+        <div class="header-search-form"> 
+            <form> 
+                <input type="search" class="input-search"> 
+                <input type="submit" class="input-search-submit" value="검색"> 
+            </form> 
+        </div> 
+        <h1 class="header-title">Interest</h1> 
+        <div class="header-menu"> 
+            <ul class="outer-menu"> 
+                <li> 
+                    <a href="#">정보</a> 
+                    <ul class="inner-menu"> 
+                        <li><a href="#">데이터</a></li> 
+                        <li><a href="#">메시지</a></li> 
+                        <li><a href="#">알림함</a></li> 
+                        <li><a href="#">관심사</a></li> 
+                        <li><a href="#">기록함</a></li> 
+                        <li><a href="#">저장소</a></li> 
+                    </ul> 
+                </li> 
+            </ul> 
+            <ul class="outer-menu"> 
+                <li> 
+                    <a href="#">사용자</a> 
+                    <ul class="inner-menu"> 
+                        <li><a href="#">데이터</a></li> 
+                        <li><a href="#">로그인</a></li> 
+                        <li><a href="#">저장소</a></li> 
+                        <li><a href="#">좋아요</a></li> 
+                    </ul> 
+                </li> 
+            </ul> 
+        </div> 
+    </header> 
+    <!-- 네비게이션 메뉴 --> 
+    <nav id="main-navigation"> 
+        <ul> 
+            <li><a href="#">Following</a></li> 
+            <li><a href="#">Categories</a></li> 
+            <li><a href="#">Everything</a></li> 
+            <li><a href="#">Popular</a></li> 
+            <li><a href="#">Gift</a></li> 
+        </ul> 
+    </nav> 
+    <!-- 본문 영역 --> 
+    <section id="main-section"> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/rmOocfrF_ViY_tBlHNnTEScVOfi5kQrvLVSvV1sQZuyjzBm_QtOFkkcMrzmjLcB8NgPCZ0t5vV1qkgDr9OITbZdxLmtahtIy11rSKkzI0dZI0ZcClURIECBRXjcpo25DqGS166QVWp48iovdh0YBpg.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 최우리</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐에서 주인공을 맡고 있으며, 반려견 마루와 함께 지내고 있다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/JnMv31feRBfnDUBT9OeDzJ4BrgtLb6vhvjBn7-8hn_35d90qnAb-rwY_ZfFJMOWoj18T0Hm-VOCscRY-z06e1PixTvnN0QY_XFms7g74gkojhGsSeRzIFTA165VkNKxI-998-U8vRcImjG7uP4iYrA.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 최마루</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐에서 주인공 '최우리'가 키우는 반려견으로 종은 푸들이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/x4hEe4rpn1qWrkHOuklw72WyTarsq4z4o8Ru0iiuYYzW-kI4cuexImxIjaVRc7OkdD-jfSHo3aIAZb3J1woS0bLnEA2CHzY1JN39MBIZBENHfaJS4I__n-xqbWuZdiIbE5mRoprYdIgKKiwbde5YRQ.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 최마루</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐에서 주인공 '최우리'가 키우는 반려견이며 현재는 사람으로 변한 모습을 하고있다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/IH1uzs_9q4ZvM7SBQzGxlk_Ky4mAW3yD1JLubOvI4gujVt--e2uirx71h8uHJLC3LnjSkB6kJwLwDIwDjrEkQ7p5_6Koj_lcPMyZExr_uO5pr4W75brvwQ3520MSi55l4_6QiBFrfJ73fG_XwOFakQ.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 임준호</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐에서 주인공 '최우리'의 윗집에 사는 남자이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/3-3ejfhHqax3JdUH4P-A-lUxd2WWVCAeZ2ZJGnPL71wijqMLxwGvRkHt9KXt026-Lh_uSnywCjN3OghzF9l1v6-_kmyC93ubwruy8FYVAcNKhTmuOnlNKjsPXa2zdWY2NHcZfI_qfWYNk6m9OCiCKg.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 황순정</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐에서 주인공 '최우리'의 옆집에 사는 여자이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/AF_2NUg2du3v3BdW4a8W1iwPht1yNwaXcX8BWgh6s2rPp59LHI5IA-wuzckYr36ukXZAqXYXfMm5jTprNkD73sB4QlXfuxO7Dm-D8AlaolZnbUsx7aDxnXKnQCyA8PqC0WakcX0lWUe9vKI4FG9V6A.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 임서율</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">윗집에 사는 '임준호'의 사촌동생이다. 마루와 같은 유치원을 다니고 있다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/36Z7M5JUxsVL7Q2hFuUUkfHztnzEa8VXEYs78uZA4sxeebrWYATZZ4j2qJ6Hiru7SiA7KaD0QnlIaIFTOYn5m5N0ovjIzsg_RE3CLGW3FQ2P3LzisqWNAsJ_jAZQynW7pdQlhZyG5nUMFvi7vUvivQ.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 백만세</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">주인공 '최우리'와 같은 빌라 102호에 사는 할아버지이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/g5hfoHAv497_qRTq7zy0nr3-GS7GyI8V4bPpHyQN85HCk6oEjO9G-kXtLB3xP_OmTbztktjnAVxZA7_qK9pHAyq2Ry2c22mbOqSeDfqPAG_J76wPnhyxwnASJNkYvhEg_jfi8lgxZBnNkoSlH0H3GA.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 김미영</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">주인공 '최우리'와 같은 빌라 302호에 사는 직장인 여성이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/WwUp6m93GqCiUsYFr7SCBJrtnWpIspn7JC2NvsDNlDUDoHxj7h5SqGeBNnznurF_n3q7AlZAP0P77wEGg9zSembTnDa7Plun60DOFuH7anD9jiZp1crEUbZRM0svvh7vE0QIdixMctx5s8WWP18O-w.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 유진</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">마루와 같은 유치원에 다니는 6살 여자아이이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/eFAmjTFjWAagAKZQXjnOMOgMPx9YPAL7ft3JMScaE2mqxlTu3CHrO_wgwjJTS9EPxm5Im8_E7JNnuIVC0fJGrYpd6OJXDw848prFn9w0GFW0JYjSih457hjogtMR22jOYNS2GZGtY8T42_baEnmWJQ.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 연탄</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">마루와 같은 유치원에 다니는 고양이로 변한 남자 아이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/X0rcjR8oi8L4lIgOyI4xJhAiK9Ptl0Tbx2v_-1ltf1KzG36XyI0DoxWhxeDfWfiPR2iEgr4TrwZ8lFCU5-w_yQdaF2Wn3rDDVkE-cXrBBMTDG2o7zddUSJevUm6A8ljFuGxelemweWjO9Ig9FyuYwQ.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 하마희</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">주인공 '최우리'와 중학교 동창이다. 직업은 먹방 유튜버이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/CMgNSc_enbFeBJ2mpfGpq4WvBykX0c9Fn33a2sLl-FeenQoVLFhlFwvEkPNsm8PK5_642fh8UdpBPIqG1xyeh6qn8rWg2Wsky2ExCI2k7DyXvMJLvmJITuMpkJ88zexWZWT4fOuvRr0n1aXBxBNgmg.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 사랑이</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">이웃집 할머니가 기르는 강아지이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/cK7Q6RX8BQA2Ul7vfG29sGxkWghBe3mZcLJJ2ycJedjGwq282kYM0uH_Xq2cFIsPQ3_U2QMjSTw0HVHNAjfC9DrzEwmJLj6nPaBkW1bLeB3oJGiRugrklwTfGE24JidWHTWzH8kaZbnrsiUvGEdRaw.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 초원</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">마루와 같은 유치원에 다니는 원생 중 한 명이다. 겨울이와는 남매이며 초원이가 오빠다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/LGCqAbfV-R8qyguBEg2rJMOnEumJqWrLv3jagE6CXVMCOdj1Xo-sbe_JXBDR_4vlrOeEiY4nLgUtVvCuu6EtfQLgtTKQ3MdCK1dqKCCS4CnxbVfH1PrjOMhxs3EVAbDdU5Z0OE5sR6_ACHaksxyEdA.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 겨울</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">마루와 같은 유치원에 다니는 원생 중 한 명이다. 초원이와 남매이며 겨울이가 동생이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/w7vjMnN1nQTa8Ur2iJPhnLPTY-ZEyAJdseE-9zGAMf2-Zp2tRo8kKl5rsMS0JIkj-39qw6bcN4SNQPLtPtnEHFqoRPcWRHZp7tXKWxCDU63yH0YbAl40Gf-KEd3oA4NbKcInkw8or1Go6U_w5Z3gyg.webp"></a> 
+            </div> 
+            <p class="paper-description">등장인물: 다혜</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">마루와 서율이가 다니는 유치원의 담임 선생님이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/VRhIHibvO-9Grdn3kuLPIpziNlrcMq6MfX1Kh9cpX4TDl8gjnU2g9RiCO8aYPZp-UCcG3EqEl5Z1vFkOIqTmPRGLNDHnIziWDud1ICObj4aPNiGRjX1u17p1QjEz_IfiATOuAXqh98FEBH3ydkWgAg.webp"></a> 
+            </div> 
+            <p class="paper-description">마루는 강쥐 인기짤</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐의 인기 짤 중 하나이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://mblogthumb-phinf.pstatic.net/MjAyMjA3MjZfMjI3/MDAxNjU4ODE0Nzk2NzM5.0jJBPluLho7ja8g9Y5TDxtlOATcw4JplpjvIhjuPRKgg.GpYkoJsZDSzCGOqKNyH4RKmzJuGC291sYKVCtbe1zBYg.JPEG.luiscorea/Screenshot%EF%BC%BF20220717%EF%BC%8D091429%EF%BC%BFNAVER.jpg?type=w800"></a> 
+            </div> 
+            <p class="paper-description">마루는 강쥐 인기짤</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐의 인기 짤 중 하나이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://i.namu.wiki/i/7DrwoKvfnGOkbNjxASi2GX_0COr9kHVtYE_OVnldxgJvxpUqp42B-GlS8Xa_XBFnrzsca0ks-aXPpyYBcCUcuzhHMSnIqjXGzcarPS8ks8mH-1yrrCjju4xpaaQO8t2nGa6gkTYQns9HkMyMOEJnGQ.webp"></a> 
+            </div> 
+            <p class="paper-description">마루는 강쥐 인기짤</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐의 인기 짤 중 하나이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://mblogthumb-phinf.pstatic.net/MjAyMjA3MjZfMjMg/MDAxNjU4ODE0NzkyNzg5.sMQKkn1tEXK_s76BWuhuShCJA3mRYoFYS4hIin5DxFAg.gPhCBtTlg3kU3AI3Tdw-g3o1tmkhV9gxSxV-1ndSNzsg.JPEG.luiscorea/Screenshot%EF%BC%BF20220726%EF%BC%8D144908%EF%BC%BFNAVER.jpg?type=w800"></a> 
+            </div> 
+            <p class="paper-description">마루는 강쥐 인기짤</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐의 인기 짤 중 하나이다.</p> 
+            </div> 
+        </div> 
+         
+        <div class="paper"> 
+            <div class="paper-holder"> 
+                <a><img width="190" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MzBfMjc4%2FMDAxNjgyODY1ODE4NDM3.DBzA4AmtEDVfVlxOCHm8jGRTuOEm0qmYlRb6I_5lACwg.k8k2trteAW8idyM8GBRQUckugKiYTAel2ea4qta4tTQg.JPEG.blessing0352%2FIMG_1123.JPG&type=sc960_832"></a> 
+            </div> 
+            <p class="paper-description">마루는 강쥐 인기짤</p> 
+            <div class="paper-content"> 
+                <a class="paper-link" href="#"><img width="30" height="30" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp"></a> 
+                <p class="paper-text">네이버웹툰 마루는 강쥐의 인기 짤 중 하나이다.</p> 
+            </div> 
+        </div> 
+         
+    </section> 
+    <!-- 라이트박스 --> 
+    <div id="darken-background"> 
+        <div id="lightbox"> 
+            <div class="user-information"> 
+                <a class="user-information-image" href="#">
+                    <img width="70" height="70" src="https://i.namu.wiki/i/4kbzovkkhYzNLTbArPUp7-tRMFUflXA9chqd8nMyoI7ooMLqyXe1Rx39aMX23F8LMHSoqAAOVUzyzeNCXJdeP2yOlIZBAOKvOJTqmJwu4-OmcHwCHVPL13RYwpcgCA64J5QUN9bVqOjfKxItLX6Auw.webp">
+                </a> 
+                <div class="user-information-text">
+                    <h3>User</h3>
+                    <p>마루는 강쥐의 마루이다. 사람으로 변하기 전 푸들 강아지의 모습이다.</p>
+                </div> 
+            </div>
+            <hr class="lightbox-splitter">
+            <img width="600" src="https://i.namu.wiki/i/JnMv31feRBfnDUBT9OeDzJ4BrgtLb6vhvjBn7-8hn_35d90qnAb-rwY_ZfFJMOWoj18T0Hm-VOCscRY-z06e1PixTvnN0QY_XFms7g74gkojhGsSeRzIFTA165VkNKxI-998-U8vRcImjG7uP4iYrA.webp"> 
+        </div> 
+    </div> 
+</body> 
+</html>
+<!-- Masonry 라이브러리 추가 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+
+<!-- JavaScript 코드 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Masonry 초기화 및 설정
+        var mainSection = document.getElementById('main-section');
+
+        var masonry = new Masonry(mainSection, {
+            itemSelector: '.paper', // Masonry가 적용될 아이템의 선택자
+            columnWidth: 190,
+            gutter: 15,
+            isAnimated: true
+        });
+    });
+</script>
